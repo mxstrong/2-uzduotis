@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 #include <filesystem>
 #include "Student.h"
@@ -11,7 +12,7 @@ using namespace std::chrono;
 int main()
 {
   int n = 0;
-  std::vector<Student> students;
+  std::deque<Student> students;
   bool goodChoice = true;
   std::string choice;
   do {
@@ -86,8 +87,8 @@ int main()
   {
     readDataFromInput(n, students);
   }
-  std::vector<Student> goodStudents;
-  std::vector<Student> badStudents;
+  std::deque<Student> goodStudents;
+  std::deque<Student> badStudents;
 
   std::string final = "";
   bool badInput = false;
@@ -108,12 +109,10 @@ int main()
   duration<double> diff = end - start;
   std::cout << "Studentu dalijimas uztruko: " << diff.count() << std::endl;
 
-  start = steady_clock::now();
   printResultsToFile(goodStudents, "pazangus.txt", final);
   printResultsToFile(badStudents, "nepazangus.txt", final);
-  end = steady_clock::now();
-  diff = end - start;
-  std::cout << "Studentu surasymas i 2 failus uztruko: " << diff.count() << std::endl;
-  
+
+  system("pause");
+
   return 0;
 }
