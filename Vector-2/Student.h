@@ -1,5 +1,5 @@
 #pragma once
-#include <list>
+#include <vector>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -9,7 +9,7 @@
 struct Student
 {
   int examResult = 0;
-  std::list<int> homeworkResults;
+  std::vector<int> homeworkResults;
   std::string name, surname;
   float getAverage();
   float getMedian();

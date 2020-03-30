@@ -1,10 +1,10 @@
-#include <chrono>
 #include <vector>
 #include <iomanip>
 #include <iostream>
 #include <fstream>
 #include "Student.h"
 #include <algorithm>
+#include <chrono>
 
 using namespace std::chrono;
 
@@ -41,20 +41,14 @@ bool isFirst(Student first, Student second)
   }
 }
 
-void divideStudents(std::vector<Student> &students, std::vector<Student> &goodStudents, std::vector<Student> &badStudents, std::string final)
+void divideStudents(std::vector<Student> &goodStudents, std::vector<Student> &badStudents, std::string final)
 {
   auto start = steady_clock::now();
-  for (Student student : students)
-  {
-    if (student.getFinal((final == "vidurkis") ? student.getAverage() : student.getMedian(), student.examResult) >= 5)
-    {
-      goodStudents.push_back(student);
-    }
-    else
-    {
-      badStudents.push_back(student);
-    }
-  }
+  auto p = std::stable_partition(goodStudents.begin(), goodStudents.end(),
+    [&](Student student) { return student.getFinal((final == "vidurkis") ? student.getAverage() : student.getMedian(), student.examResult) >= 5; });
+  
+  badStudents.insert(badStudents.end(), std::make_move_iterator(p), std::make_move_iterator(goodStudents.end()));
+  goodStudents.erase(p, goodStudents.end());
   auto end = steady_clock::now();
   duration<double> diff = end - start;
   std::cout << "Studentu dalijimas uztruko: " << diff.count() << std::endl;
@@ -69,7 +63,7 @@ void sortStudents(std::vector<Student>& students)
   std::cout << "Studentu rikiavimas uztruko: " << diff.count() << std::endl;
 }
 
-void printResultsToFile(std::vector<Student>& students, std::string fileName, std::string final)
+void printResultsToFile(std::vector<Student> &students, std::string fileName, std::string final)
 {
   auto start = steady_clock::now();
   std::ofstream res(fileName.c_str());

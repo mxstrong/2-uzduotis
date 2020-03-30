@@ -1,4 +1,5 @@
 #include <chrono>
+#include <sstream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -8,7 +9,7 @@
 
 using namespace std::chrono;
 
-bool chooseToCalculate(std::vector<Student>& students)
+bool chooseToCalculate(std::vector<Student> &students)
 {
   std::string calculateResults = "";
 
@@ -33,19 +34,19 @@ void generateFile(std::string fileName, std::vector<Student> students)
   auto start = steady_clock::now();
   std::ofstream res(fileName.c_str());
   res << std::left
-    << std::setw(15) << "Vardas"
-    << std::setw(17) << "Pavarde";
+      << std::setw(15) << "Vardas"
+      << std::setw(17) << "Pavarde";
   for (int i = 1; i <= students.front().homeworkResults.size(); i++)
   {
-    res << "ND" << std::setw(5) << i << ' ';
+    res <<  "ND" << std::setw(5) << i << ' ';
   }
   res << "Egz." << std::endl;
-
+  
   for (Student student : students)
   {
     std::ostringstream line;
     line << std::left << std::setw(15) << student.name
-      << std::setw(17) << student.surname;
+        << std::setw(17) << student.surname;
     for (int result : student.homeworkResults)
     {
       line << std::setw(8) << result;

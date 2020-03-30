@@ -12,13 +12,13 @@ using namespace std::chrono;
 int main()
 {
   auto start = steady_clock::now();
-  std::list<Student> students;
+  std::vector<Student> students;
   std::string choice = chooseInputSource();
 
   if (choice == "skaityti")
   {
     readDataFromFile(students);
-  }
+  } 
   else if (choice == "generuoti")
   {
     generateData(students);
@@ -38,16 +38,15 @@ int main()
   {
     readDataFromInput(students);
   }
-  std::list<Student> badStudents;
-  std::list<Student> goodStudents;
+  std::vector<Student> badStudents;
 
   std::string final = chooseFinal();
 
   sortStudents(students);
 
-  divideStudents(students, goodStudents, badStudents, final);
+  divideStudents(students, badStudents, final);
 
-  printResultsToFile(goodStudents, "pazangus.txt", final);
+  printResultsToFile(students, "pazangus.txt", final);
   printResultsToFile(badStudents, "nepazangus.txt", final);
   auto end = steady_clock::now();
   duration<double> diff = end - start;

@@ -1,6 +1,7 @@
 #include "Student.h"
 #include <algorithm>
 #include <numeric>
+#include <iomanip>
 
 float Student::getAverage()
 {
