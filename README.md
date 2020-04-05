@@ -30,31 +30,31 @@ Programa dabar suskirstyta į 3 versijas, su skirtingomis duomenų struktūromis
 ## Programos veikimo laiko analizė, su skirtingomis duomenų struktūromis:
 
 ### std::vector:
-Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas
---------------- | ------------------- | -------------------------------------
-1000 | 0.0056261s | 0.0003923s
-10000 | 0.0460614s | 0.0027093s
-100000 | 1.1548s | 0.0382856s
-1000000 | 5.41935s | 0.469434s
-10000000 | 44.3545s | 4.23923s
+Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas | Visas laikas
+--------------- | ------------------- | ------------------------------------- | ------------
+1000 | 0.0056261s | 0.0003923s | 0.0060184s
+10000 | 0.0460614s | 0.0027093s | 0.0487707s
+100000 | 1.1548s | 0.0382856s | 1.1930856s
+1000000 | 5.41935s | 0.469434s | 5.888784s
+10000000 | 44.3545s | 4.23923s | 48.59373s
 
 ### std::list:
-Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas
---------------- | ------------------- | -------------------------------------
-1000 | 0.0089173s | 0.0007535s
-10000 | 0.0467701s | 0.0063385s
-100000 | 1.22308s | 0.146764s
-1000000 | 6.05603s | 1.09972s
-10000000 | 47.787s | 9.35601s
+Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas | Visas laikas
+--------------- | ------------------- | ------------------------------------- | ------------
+1000 | 0.0089173s | 0.0007535s | 0.0096708s
+10000 | 0.0467701s | 0.0063385s | 0.0531086s
+100000 | 1.22308s | 0.146764s | 1.369844s
+1000000 | 6.05603s | 1.09972s | 7.15575s
+10000000 | 47.787s | 9.35601s | 57.14301s
 
 ### std::deque:
-Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas
---------------- | ------------------- | -------------------------------------
-1000 | 0.0102834s | 0.0006412s
-10000 | 0.049512s | 0.0069454s
-100000 | 1.20976s | 0.0954378s
-1000000 | 5.60804s | 0.83865s
-10000000 | 50.1963s | 11.5791s
+Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas | Visas laikas
+--------------- | ------------------- | ------------------------------------- | ------------
+1000 | 0.0102834s | 0.0006412s | 0.0109246s
+10000 | 0.049512s | 0.0069454s | 0.0564574s
+100000 | 1.20976s | 0.0954378s | 1.3051978s
+1000000 | 5.60804s | 0.83865s | 6.44669s
+10000000 | 50.1963s | 11.5791s | 61.7754s
 
 Greičiausiai šioje programoje veikia std::vector duomenų struktūra, kitos duomenų struktūros šias užduotis atlieka lėčiau, o programos veikimo laiko augimas tarp struktūrų panašus.
 
@@ -83,26 +83,28 @@ Studentų kiekis | std::vector 1 strategija | std::vector 2 strategija | std::li
 ## Įdiegimo instrukcija:
 1. Atsisiųskite norimą programos versiją iš „Releases“ skilties arba naudodami `git clone https://github.com/mxstrong/2-uzduotis.git` nusikopijuokite kodą į pasirinktą aplanką.
 2. Pasirinkite aplanką, kuriame yra jūsų norima versija ir jį atsidarykite komandinėje eilutėje.
-3. Naudodami cmake susikurkite projekto build failus(Jei neturite cmake jį galite gauti: https://cmake.org/download/):
-3.1. Galite naudoti komandas kad būtų sukurti default build failai: 
-`mkdir build
-cd build
-cmake --build ..`
-3.2. Jei norite pasirinkti kitą būdą projektą subuild'inti, galite pasirinkti bet kurį būdą iš galimų, kurie išvardinti `cmake -G --help`
-3.2.1. Tada galite sugeneruoti build failus pasirinktu būdu:
-`cmake --build -G "Pasirinktas būdas" ..`
-4. Subuild'inkite programą pasirinktu būdu ir paleiskite gautą vykdomajį failą.
+3. Unix sistemoje Paleiskite Makefile naudodami komandą `make` (Reikalingas clang kompiliatorius, jei jo neturite, atsisiųskite iš https://releases.llvm.org/download.html arba Makefile faile pasikeiskite kompiliatorių).
+4. Pasileiskite programą naudodami komandą: `./[Paleidžiamojo failo vardas]` (Deque, Deque-2, List, List-2, Vector arba Vector-2).
 
 ## Naudojimo instrukcija:
-1. Pasirinkite iš kur imti pradinius duomenis.\
-2. Pasirinkite tolimesnį žingsnį (a, b ar c) pagal praeitame žingsnyje padrytą pasirinkimą.
-  2.a Jei pasirinkote įvesti, pasirinkite kelių studentų duomenis norite įvesti.\
-  3.a. Įveskite kiekvieno studento vardą, pavardę, namų darbų rezultatus ir egzamino pažymį.\
-  4.a. Pereikite į 3 žingsnį.\
-  2.b. Jei pasirinkote generuoti, pasirinkite kiek studentų sugeneruoti.\
-  3.b. Pasirinkite ar skaičiuoti rezultatus, ar sugeneruotus studentus įrašyti į failą, jei pasirinksite taip, pereikite į 3 žingsnį.\
-  4.b. Įveskite norimo sugeneruoti failo vardą.\
-  2.c. Jei pasirinkote skaityti iš failo, įveskite duomenų failo vardą.\
-  3.c. Pereikite į sekantį(3) žingsnį.\
-3. Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
-4. Peržiūrėkite rezultatus ir uždarykite programą.
+* Pasirinkite ar daryti programos veikimo laiko analizę.
+  * Jei pasirinkote Taip: 
+    * Įveskite kiek failų generuoti.
+    * Įveskite kiek studentų turi buti kiekviename faile.
+    * Įveskite failų vardus.
+    * Pasirinkite ką naudosite galutinio balo skaičiavimui - vidurkį ar medianą.
+  * Jei pasirinkote Ne:
+    * Pasirinkite iš kur gauti pradinius duomenis.
+      * Jei pasirinkote įvesti:
+        * Pasirinkite kelių studentų duomenis norite įvesti.
+        * Įveskite kiekvieno studento vardą, pavardę, namų darbų rezultatus ir egzamino pažymį.
+        * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
+      \
+     * Jei pasirinkote generuoti:
+        * Pasirinkite kiek studentų sugeneruoti.
+        * Įveskite norimo sugeneruoti failo vardą.
+        * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
+      \
+     * Jei pasirinkote skaityti iš failo:
+        * Įveskite duomenų failo vardą.
+        * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).

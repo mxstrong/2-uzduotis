@@ -10,22 +10,6 @@
 
 using namespace std::chrono;
 
-std::string chooseInputSource()
-{
-  bool goodChoice = true;
-  std::string choice;
-  do {
-    if (!goodChoice)
-    {
-      std::cout << "Pasirinkimas turi buti ivesti, generuoti arba skaityti" << std::endl;
-    }
-    std::cout << "Kaip gauti duomenis (ivesti, generuoti, skaityti(is failo))?" << std::endl;
-    std::cin >> choice;
-    goodChoice = choice.compare("ivesti") == 0 || choice.compare("generuoti") == 0 || choice.compare("skaityti") == 0;
-  } while (!goodChoice);
-  return choice;
-}
-
 int calculateHomeworkCount(const std::string& input)
 {
   int homeworkCount = 0;
@@ -64,11 +48,10 @@ void readDataFromFile(std::list<Student>& students)
     std::cin >> fileName;
     try
     {
-      std::filesystem::exists(fileName);
+      fileExists = std::filesystem::exists(fileName);
     }
     catch (std::filesystem::filesystem_error & e)
     {
-      fileExists = false;
       throw "File cannot be opened";
     }
   } while (!fileExists);
